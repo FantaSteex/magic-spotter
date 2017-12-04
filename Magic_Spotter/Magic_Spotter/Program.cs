@@ -9,10 +9,6 @@ using System.Windows.Forms;
 namespace Magic_Spotter {
     static class Program {
 
-        
-
-
-
         /// <summary>
         /// Point d'entrée principal de l'application.
         /// </summary>
@@ -21,9 +17,11 @@ namespace Magic_Spotter {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Dictionary<int, Dictionary<int, double>> adjustmentsTable = Adjustments.adjustmentsTable;
 
-            Debug.WriteLine(adjustmentsTable[300][-50]);
+            Dictionary<int, Dictionary<int, double>> adjustmentsTable = Adjustments.adjustmentsTable;
+            Debug.WriteLine(Adjustments.adjustmentsTable[300][-50]);
+
+            
 
             Application.Run(new Form1());
         }
