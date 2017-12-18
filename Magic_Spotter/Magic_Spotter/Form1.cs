@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Magic_Spotter {
     public partial class Form1 : Form {
+
+        public static Dictionary<string, Panel> panels = new Dictionary<string, Panel>();
+
         public Form1() {
             InitializeComponent();
         }
@@ -24,6 +27,16 @@ namespace Magic_Spotter {
 
         private void label1_Click(object sender, EventArgs e) {
 
+        }
+
+        private void flpMain_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        public FlowLayoutPanel getFlpMain()
+        {
+            return flpMain;
         }
     }
 }

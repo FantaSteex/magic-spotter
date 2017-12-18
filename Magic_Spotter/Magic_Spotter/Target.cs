@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Magic_Spotter {
     class Target {
@@ -14,6 +15,7 @@ namespace Magic_Spotter {
         private Speed speed { get; set; }
         private string comment { get; set; }
         private Zeroing zeroing { get; set; }
+        private TargetUI targetInterface { get; set; }
 
         /****************
 	     * Constructors *
@@ -27,6 +29,7 @@ namespace Magic_Spotter {
             this.speed = new Speed("static");
             this.comment = "";
             this.zeroing = new Zeroing(0);   // TODO : modify according to zeroing constructor
+            this.targetInterface = new TargetUI(this.id);
         }
 
 
@@ -57,6 +60,35 @@ namespace Magic_Spotter {
             this.alive = false;
         }
 
+        /// <summary>
+        /// Generates the User Interface of the target : panel, splitcontainer etc...
+        /// </summary>
+        public void generateUI() {
+            Form1.panels["pnlTarget" + this.id] = new System.Windows.Forms.Panel();
+            Form1.panels["pnlTarget" + this.id].Controls.Add(new System.Windows.Forms.SplitContainer());/*
+            spcZero1 = new System.Windows.Forms.SplitContainer();
+            lblZero1LowY = new System.Windows.Forms.Label();
+            lblZero1LowX = new System.Windows.Forms.Label();
+            lblZeroLow1 = new System.Windows.Forms.Label();
+            lblZero1UpY = new System.Windows.Forms.Label();
+            lblZero1UpX = new System.Windows.Forms.Label();
+            lblZeroUp1 = new System.Windows.Forms.Label();
+            txtComment1 = new System.Windows.Forms.TextBox();
+            txtSpeed1 = new System.Windows.Forms.TextBox();
+            txtRealDistance1 = new System.Windows.Forms.TextBox();
+            txtElevation1 = new System.Windows.Forms.TextBox();
+            txtDistance1 = new System.Windows.Forms.TextBox();
+            lblZero1 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            lblElevation1 = new System.Windows.Forms.Label();
+            lblComment1 = new System.Windows.Forms.Label();
+            lblSpeed1 = new System.Windows.Forms.Label();
+            lblRealDistance1 = new System.Windows.Forms.Label();
+            lblName1 = new System.Windows.Forms.Label();*/
+        }
+
+        // TODO : Method return target Panel 
+
         /***********
          * Getters *
          ***********/
@@ -67,6 +99,7 @@ namespace Magic_Spotter {
         public Speed GetSpeed() { return this.speed; }
         public string GetComment() { return this.comment; }
         public Zeroing getZeroing() { return this.zeroing; }
+        public Panel getPanel() { return this.targetInterface.getPanel(); }
 
         /***********
          * Setters *
