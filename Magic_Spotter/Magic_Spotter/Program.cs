@@ -6,8 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Magic_Spotter {
     static class Program {
+
 
         static Dictionary<int, Target> targets = new Dictionary<int, Target>();
 
@@ -33,14 +35,16 @@ namespace Magic_Spotter {
             addTarget(4, form);
             addTarget(5, form);
 
-            /*
+			/*
                 10 min de démo sur ordi perso
                 Exposer ce qu'on a fait, comment etc pendant 5 min
                 5 max de démo
             */
 
+			SpeechRecognition sr = new SpeechRecognition();
+			
 
-            Application.Run(form);
+			Application.Run(form);
         }
 
         static void addTarget(int id, Form1 f) {
