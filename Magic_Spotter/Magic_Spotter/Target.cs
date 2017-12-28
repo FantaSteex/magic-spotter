@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Magic_Spotter {
+	/// <summary>
+	/// Target with parameters such as distance, elevation, speed... It contains a TargetUI that is its graphical interface
+	/// </summary>
     class Target {
 
-        private int id { get; set; }
-        private bool alive { get; set; }
-        private int distance { get; set; }
-        private float elevation { get; set; }
-        private Speed speed { get; set; }
-        private string comment { get; set; }
-        private Zeroing zeroing { get; set; }
-        private TargetUI targetInterface { get; set; }
+        private int id { get; set; }	// Indentifier of the target, from 1 to n
+        private bool alive { get; set; }	// Determines if the target is alive or not
+        private int distance { get; set; }	// Distance between the user and the target
+        private float elevation { get; set; }	// Difference of elevation between the user and the target : an angle going from -90.0 to 90.0
+        private Speed speed { get; set; }	// Movement speed of the target
+        private string comment { get; set; }	// Optional comment that allows the user to quickly identify the target
+        private Zeroing zeroing { get; set; }	// Zeroing used to shoot at the target
+        private TargetUI targetInterface { get; set; }	// Graphical interface's part representing the target on the application
 
         /****************
 	     * Constructors *
@@ -28,8 +31,8 @@ namespace Magic_Spotter {
             this.elevation = 0;
             this.speed = new Speed("static");
             this.comment = "";
-            this.zeroing = new Zeroing(0);   // TODO : modify according to zeroing constructor
-            this.targetInterface = new TargetUI(this.id);
+            this.zeroing = new Zeroing(0);
+            this.targetInterface = new TargetUI(this);
         }
 
 
@@ -59,35 +62,6 @@ namespace Magic_Spotter {
         public void eliminate() {
             this.alive = false;
         }
-
-        /// <summary>
-        /// Generates the User Interface of the target : panel, splitcontainer etc...
-        /// </summary>
-        public void generateUI() {
-            Form1.panels["pnlTarget" + this.id] = new System.Windows.Forms.Panel();
-            Form1.panels["pnlTarget" + this.id].Controls.Add(new System.Windows.Forms.SplitContainer());/*
-            spcZero1 = new System.Windows.Forms.SplitContainer();
-            lblZero1LowY = new System.Windows.Forms.Label();
-            lblZero1LowX = new System.Windows.Forms.Label();
-            lblZeroLow1 = new System.Windows.Forms.Label();
-            lblZero1UpY = new System.Windows.Forms.Label();
-            lblZero1UpX = new System.Windows.Forms.Label();
-            lblZeroUp1 = new System.Windows.Forms.Label();
-            txtComment1 = new System.Windows.Forms.TextBox();
-            txtSpeed1 = new System.Windows.Forms.TextBox();
-            txtRealDistance1 = new System.Windows.Forms.TextBox();
-            txtElevation1 = new System.Windows.Forms.TextBox();
-            txtDistance1 = new System.Windows.Forms.TextBox();
-            lblZero1 = new System.Windows.Forms.Label();
-            label7 = new System.Windows.Forms.Label();
-            lblElevation1 = new System.Windows.Forms.Label();
-            lblComment1 = new System.Windows.Forms.Label();
-            lblSpeed1 = new System.Windows.Forms.Label();
-            lblRealDistance1 = new System.Windows.Forms.Label();
-            lblName1 = new System.Windows.Forms.Label();*/
-        }
-
-        // TODO : Method return target Panel 
 
         /***********
          * Getters *

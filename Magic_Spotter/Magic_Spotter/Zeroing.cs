@@ -5,30 +5,40 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Magic_Spotter {
+	/// <summary>
+	/// Represents the zeroing for a given distance. 
+	/// </summary>
     class Zeroing {
-        private int lower { get; set; }
-        private int upper { get; set; }
+        private int lower { get; set; }	// Lower value of the zero 
+        private int upper { get; set; }	// Upper value of the zero
         
         public Zeroing(int distance) {
+			zero(distance);
+        }
 
-            int round = (int)((distance + 50) / 100) * 100;
 
-            /* 
+		/// <summary>
+		/// Sets the lower and upper zero. If the distance is 850, lower zero will be 800 and upper 900
+		/// </summary>
+		/// <param name="distance"></param>
+		public void zero(int distance) {
+			int round = (int)((distance + 50) / 100) * 100;
+
+			/* 
              * distance = 1222, lower = 1200, upper = 1300 
              * distance = 1200, lower = 1200, upper = 1300
              */
-            if (round < distance) {
-                this.lower = round;
-                this.upper = round + 100;
-            } else if (round > distance) {
-                this.lower = round - 100;
-                this.upper = round;
-            } else {    // ==
-                this.upper = round;
-                this.lower = round;
-            }
-
-        }
+			if (round < distance) {
+				this.lower = round;
+				this.upper = round + 100;
+			} else if (round > distance) {
+				this.lower = round - 100;
+				this.upper = round;
+			} else {    // ==
+				this.upper = round;
+				this.lower = round;
+			}
+		}
 
         /// <summary>
         /// Calculates the horizontal adjustement depending on distance and speed. 
@@ -36,7 +46,7 @@ namespace Magic_Spotter {
         /// <param name="distance">Integer representing the distance to the target in meters (between 0 and 2500)</param>
         /// <param name="speed">Instance of the class Speed that represents the speed of the target with two attributes : name and value (ex : </param>
         /// <returns></returns>
-        public double calculateX(int distance, Speed speed) {
+        public double calculateX(bool lower, int distance, Speed speed) {
             // TODO facultatif : calcul en fonction de la distance, du temps de vol et de la vitesse de la cible
             return 0;
         }
@@ -76,5 +86,13 @@ namespace Magic_Spotter {
             }
             return 0;
         }
-    }
+
+		public int GetLower() {
+			return this.lower;
+		}
+
+		public int GetUpper() {
+			return this.upper;
+		}
+	}
 }

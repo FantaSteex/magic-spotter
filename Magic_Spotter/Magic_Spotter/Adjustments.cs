@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Magic_Spotter {
+	/// <summary>
+	/// This class contains a single attribute which is a dictionary representing an adjustments table
+	/// </summary>
     static class Adjustments {
 
         public static Dictionary<int, Dictionary<int, double>> adjustmentsTable = new Dictionary<int, Dictionary<int, double>>() {
