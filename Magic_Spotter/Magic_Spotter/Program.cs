@@ -39,6 +39,8 @@ namespace Magic_Spotter {
             addTarget(4, form);
             addTarget(5, form);
 
+			
+
 			/*
                 10 min de démo sur ordi perso
                 Exposer ce qu'on a fait, comment etc pendant 5 min
@@ -57,8 +59,15 @@ namespace Magic_Spotter {
 
 
 
-			Application.Run(form);	// Starts the application
-        }
+
+			Debug.WriteLine("before");
+			targets[1].SetDistance(1268);
+			targets[1].getZeroing().calculateY(true, 1268);
+			targets[1].getZeroing().calculateY(false, 1268);
+			Debug.WriteLine("after");
+			Application.Run(form);  // Starts the application
+			
+		}
 
 		/// <summary>
 		/// Creates a new target, adds it to the list and creates its graphical interface

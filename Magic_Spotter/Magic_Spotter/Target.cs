@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,11 +28,11 @@ namespace Magic_Spotter {
         public Target(int id) {
             this.id = id;
             this.alive = true;
-            this.distance = 0;
+            this.distance = 500;
             this.elevation = 0;
             this.speed = new Speed("static");
             this.comment = "";
-            this.zeroing = new Zeroing(0);
+            this.zeroing = new Zeroing(500);
             this.targetInterface = new TargetUI(this);
         }
 
@@ -81,7 +82,8 @@ namespace Magic_Spotter {
 
         public void SetDistance(int distance) {
             this.distance = distance;
-        }
+			this.zeroing.zero(distance);
+		}
 
         public void SetElevation(float elevation) {
             this.elevation = elevation;
