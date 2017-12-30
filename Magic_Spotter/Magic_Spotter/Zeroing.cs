@@ -29,9 +29,12 @@ namespace Magic_Spotter {
 		public void zero(int distance) {
 			int round = (int)((distance + 50) / 100) * 100;
 
-			if(distance < 300 || distance > 2400) {
-				this.upper = distance;
-				this.lower = distance;
+			if (distance < 300) {
+				this.upper = 300;
+				this.lower = 300;
+			} else if (distance > 2400) {
+				this.upper = 2400;
+				this.lower = 2400;
 			} else {
 				// distance = 1222, lower = 1200, upper = 1300 
 				// distance = 1200, lower = 1200, upper = 1300

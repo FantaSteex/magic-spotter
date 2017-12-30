@@ -19,6 +19,8 @@ Z:\Documents\winM2\winDotNet\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug
 Z:\Documents\winM2\winDotNet\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug\Magic_Spotter.exe
 Z:\Documents\winM2\winDotNet\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug\Magic_Spotter.pdb
 C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\bin\Debug\Magic_Spotter.exe.config
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\bin\Debug\Magic_Spotter.exe.manifest
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\bin\Debug\Magic_Spotter.application
 C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\bin\Debug\Magic_Spotter.exe
 C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\bin\Debug\Magic_Spotter.pdb
 C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug\Magic_Spotter.csprojResolveAssemblyReference.cache
@@ -26,5 +28,7 @@ C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spo
 C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug\Magic_Spotter.Properties.Resources.resources
 C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug\Magic_Spotter.csproj.GenerateResource.Cache
 C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug\Magic_Spotter.csproj.CoreCompileInputs.cache
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug\Magic_Spotter.exe.manifest
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug\Magic_Spotter.application
 C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug\Magic_Spotter.exe
 C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Debug\Magic_Spotter.pdb

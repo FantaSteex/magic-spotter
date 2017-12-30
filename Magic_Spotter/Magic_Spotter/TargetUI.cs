@@ -108,7 +108,7 @@ namespace Magic_Spotter {
             // lblZero1LowX : label showing the value of the lower zero's horizontal adjustment
             this.lblZeroLowX.AutoSize = true;
             this.lblZeroLowX.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblZeroLowX.ForeColor = System.Drawing.Color.Red;
+            this.lblZeroLowX.ForeColor = System.Drawing.Color.Black;
             this.lblZeroLowX.Location = new System.Drawing.Point(5, 29);
             this.lblZeroLowX.Name = "lblZero" + t.GetId() + "LowX";
             this.lblZeroLowX.Size = new System.Drawing.Size(70, 24);
@@ -118,7 +118,7 @@ namespace Magic_Spotter {
             // lblZero1LowY : label showing the value of the lower zero's vertical adjustment
             this.lblZeroLowY.AutoSize = true;
             this.lblZeroLowY.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblZeroLowY.ForeColor = System.Drawing.Color.Red;
+            this.lblZeroLowY.ForeColor = System.Drawing.Color.Black;
             this.lblZeroLowY.Location = new System.Drawing.Point(80, 29);
             this.lblZeroLowY.Name = "lblZero" + t.GetId() + "LowY";
             this.lblZeroLowY.Size = new System.Drawing.Size(70, 24);
@@ -137,7 +137,7 @@ namespace Magic_Spotter {
             // lblZero1UpX : label showing the value of the upper zero's horizontal adjusment
             this.lblZeroUpX.AutoSize = true;
             this.lblZeroUpX.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblZeroUpX.ForeColor = System.Drawing.Color.Red;
+            this.lblZeroUpX.ForeColor = System.Drawing.Color.Black;
             this.lblZeroUpX.Location = new System.Drawing.Point(5, 29);
             this.lblZeroUpX.Name = "lblZero" + t.GetId() + "UpX";
             this.lblZeroUpX.Size = new System.Drawing.Size(70, 24);
@@ -147,7 +147,7 @@ namespace Magic_Spotter {
             // lblZero1UpY : label showing the value of the upper zero's vertical adjusment
             this.lblZeroUpY.AutoSize = true;
             this.lblZeroUpY.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblZeroUpY.ForeColor = System.Drawing.Color.Red;
+            this.lblZeroUpY.ForeColor = System.Drawing.Color.Black;
             this.lblZeroUpY.Location = new System.Drawing.Point(80, 29);
             this.lblZeroUpY.Name = "lblZero" + t.GetId() + "UpY";
             this.lblZeroUpY.Size = new System.Drawing.Size(70, 24);
@@ -163,9 +163,9 @@ namespace Magic_Spotter {
             this.txtComment.Text = t.GetComment();
 
 			// txtSpeed1 : textbox of the target's speed
-			this.txtSpeed.Location = new System.Drawing.Point(58, 62);
+			this.txtSpeed.Location = new System.Drawing.Point(40, 62);
             this.txtSpeed.Name = "txtSpeed" + t.GetId();
-            this.txtSpeed.Size = new System.Drawing.Size(44, 20);
+            this.txtSpeed.Size = new System.Drawing.Size(62, 20);
             this.txtSpeed.TabIndex = 12;
             this.txtSpeed.Text = t.GetSpeed().GetName();
 
@@ -217,11 +217,11 @@ namespace Magic_Spotter {
 
             // lblSpeed1 : label of the speed
             this.lblSpeed.AutoSize = true;
-            this.lblSpeed.Location = new System.Drawing.Point(8, 65);
+            this.lblSpeed.Location = new System.Drawing.Point(0, 65);
             this.lblSpeed.Name = "lblSpeed" + t.GetId();
-            this.lblSpeed.Size = new System.Drawing.Size(47, 13);
+            this.lblSpeed.Size = new System.Drawing.Size(30, 13);
             this.lblSpeed.TabIndex = 2;
-            this.lblSpeed.Text = "Speed  :";
+            this.lblSpeed.Text = "Speed :";
 
             // lblRealDistance1 : label of the real distance
             this.lblRealDistance.AutoSize = true;

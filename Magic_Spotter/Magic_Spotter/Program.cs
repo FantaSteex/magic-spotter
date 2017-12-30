@@ -13,7 +13,17 @@ namespace Magic_Spotter {
 	/// </summary>
 	static class Program {
 
-
+		public static Dictionary<string, string> processToUI = new Dictionary<string, string>() {
+			{ "", "Donnez un mot-clef : <<Nouvelle cible>> ou <<J'engage l'ennemi>>"},
+			{ "nouvelle cible", "Création d'une nouvelle cible"},
+			{ "modifier", "Modification de la cible" },
+			{ "distance", "Donnez un nombre allant de 0 à 2500"},
+			{ "elevation", "Donnez un nombre allant de -90.0 à 90.0"},
+			{ "vitesse", "Donnez une vitesse : Statique, Recherche, Patrouille ou Course"},
+			{ "commentaire", "Donnez une courte description de la cible"},
+			{ "engager ennemi", "Donnez l'identifiant (nombre) d'une cible"},
+			{ "cible engagée", "Dites <<Elimination confirmée>> ou <<Annuler>> pour changer de cible"}
+		};	// Dictionary that gives a label for each process (label will be shown to the user)
 		static Dictionary<int, Target> targets = new Dictionary<int, Target>(); // Dictionary that contains every target instanciated in the application
 		static SpeechRecognition speechRecognizer = new SpeechRecognition();    // SpeechRecognition engine used to recognized free text
 		static KeywordsRecognition keywordsRecognizer = new KeywordsRecognition(true);  // KeywordsRecognition engine used to recognized specific keywords ("New target", "Distance" etc...)
@@ -122,7 +132,7 @@ namespace Magic_Spotter {
 			} else if (int.TryParse(e.GetText(), out targetId) && currentProcess == "") {
 				if(targets.ContainsKey(targetId)) {
 					currentTargetId = targetId;
-					updateProcess("nouvelle cible", "");
+					updateProcess("modifier", "");
 				}
 			} else {
 				switch (e.GetText()) {
@@ -183,6 +193,10 @@ namespace Magic_Spotter {
 			Debug.WriteLine("speech Recognized in program : " + e.GetText());
 			form.SetLabelRecognitionText(e.GetText());
 
+			if(e.GetText() == "Annulé" || e.GetText() == "annulé" || e.GetText() == "Annuler" || e.GetText() == "annuler") {
+				updateProcess(previousProcess, "");
+				speechRecognizer.stop();
+			}
 			switch(currentProcess) {
 				case "distance":
 					int distance = 0;
@@ -215,10 +229,6 @@ namespace Magic_Spotter {
 					updateProcess(previousProcess, "");
 					speechRecognizer.stop();
 					break;
-				case "engager ennemi":
-
-					break;
-
 			}
 		}
 
@@ -234,13 +244,13 @@ namespace Magic_Spotter {
 		static void updateProcess(string p) {
 			previousProcess = currentProcess;
 			currentProcess = p;
-			form.SetLabelProcessText(p);
+			form.SetLabelProcessText(processToUI[p]);
 		}
 
 		static void updateProcess(string current, string previous) {
 			previousProcess = previous;
 			currentProcess = current;
-			form.SetLabelProcessText(current);
+			form.SetLabelProcessText(processToUI[current]);
 		}
 
 	}

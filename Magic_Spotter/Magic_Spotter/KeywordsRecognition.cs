@@ -68,6 +68,7 @@ namespace Magic_Spotter {
 				texts.Add("Course");
 				texts.Add("Distance");
 				texts.Add("Elimination confirmée");
+				texts.Add("Modifier");
 
 				// Allows the keywords grammar to recognize integers from 1 to 100. Not the prettiest solution, but both ways are ugly.
 				for (int i = 1; i <= 100; i++)	
