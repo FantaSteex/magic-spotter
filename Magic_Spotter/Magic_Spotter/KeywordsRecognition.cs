@@ -42,7 +42,7 @@ namespace Magic_Spotter {
 		/// <param name="e">SpeechRecognizedEventArgs that will contain the recognized text</param>
 		private void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e) {
 			// Found on https://msdn.microsoft.com/fr-fr/library/system.speech.recognition.speechrecognizer.speechrecognized(v=vs.110).aspx
-			Debug.WriteLine("Keyword recognized : " + e.Result.Text);
+			//Debug.WriteLine("Keyword recognized : " + e.Result.Text);
 			recognized(this, new KeywordRecognizedEventArgs(e.Result.Text));
 			
 		}
@@ -52,11 +52,10 @@ namespace Magic_Spotter {
 		/// Adds the keywords to the grammar.
 		/// </summary>
 		private void loadGrammarAndCommands() {
-			Debug.WriteLine("Keywords loadGrammar");
+			//Debug.WriteLine("Keywords loadGrammar");
 			try {
 				texts.Add("Nouvelle cible");
 				texts.Add("Distance");
-				texts.Add("Mètres");
 				texts.Add("Elévation");
 				texts.Add("Vitesse");
 				texts.Add("Commentaire");
@@ -69,6 +68,10 @@ namespace Magic_Spotter {
 				texts.Add("Course");
 				texts.Add("Distance");
 				texts.Add("Elimination confirmée");
+
+				// Allows the keywords grammar to recognize integers from 1 to 100. Not the prettiest solution, but both ways are ugly.
+				for (int i = 1; i <= 100; i++)	
+					texts.Add(i.ToString());
 
 
 				Grammar wordsList = new Grammar(new GrammarBuilder(texts));

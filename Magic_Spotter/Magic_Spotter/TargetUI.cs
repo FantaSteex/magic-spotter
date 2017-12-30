@@ -11,7 +11,7 @@ namespace Magic_Spotter {
 	/// Graphical interface of the target. Generates a template that is common to every target, adds to it the target's properties and adds it to the application's interface
 	/// </summary>
     class TargetUI {
-
+		
         private Panel panel { get; set; }
         private SplitContainer spcZero { get; set; }
         private Label lblZeroLowX { get; set; }
@@ -113,7 +113,7 @@ namespace Magic_Spotter {
             this.lblZeroLowX.Name = "lblZero" + t.GetId() + "LowX";
             this.lblZeroLowX.Size = new System.Drawing.Size(70, 24);
             this.lblZeroLowX.TabIndex = 15;
-            this.lblZeroLowX.Text = "X : " + t.getZeroing().calculateX(true, t.realDistance(), t.GetSpeed());	// X : -0.65
+            this.lblZeroLowX.Text = "X : " + t.getZeroing().calculateX(true);	// X : -0.65
 
             // lblZero1LowY : label showing the value of the lower zero's vertical adjustment
             this.lblZeroLowY.AutoSize = true;
@@ -123,7 +123,7 @@ namespace Magic_Spotter {
             this.lblZeroLowY.Name = "lblZero" + t.GetId() + "LowY";
             this.lblZeroLowY.Size = new System.Drawing.Size(70, 24);
             this.lblZeroLowY.TabIndex = 16;
-            this.lblZeroLowY.Text = "Y : " + t.getZeroing().calculateY(true, t.realDistance());	// Y : 1.25
+            this.lblZeroLowY.Text = "Y : " + t.getZeroing().calculateY(true);	// Y : 1.25
 
             // lblZeroUp1 : label showing the value of the upper zero
             this.lblZeroUp.AutoSize = true;
@@ -142,7 +142,7 @@ namespace Magic_Spotter {
             this.lblZeroUpX.Name = "lblZero" + t.GetId() + "UpX";
             this.lblZeroUpX.Size = new System.Drawing.Size(70, 24);
             this.lblZeroUpX.TabIndex = 17;
-            this.lblZeroUpX.Text = "X : " + t.getZeroing().calculateX(false, t.realDistance(), t.GetSpeed());	// X : 0.3
+            this.lblZeroUpX.Text = "X : " + t.getZeroing().calculateX(false);	// X : 0.3
 
             // lblZero1UpY : label showing the value of the upper zero's vertical adjusment
             this.lblZeroUpY.AutoSize = true;
@@ -152,7 +152,7 @@ namespace Magic_Spotter {
             this.lblZeroUpY.Name = "lblZero" + t.GetId() + "UpY";
             this.lblZeroUpY.Size = new System.Drawing.Size(70, 24);
             this.lblZeroUpY.TabIndex = 18;
-            this.lblZeroUpY.Text = "Y : " + t.getZeroing().calculateY(true, t.realDistance());	// Y : -2.42
+            this.lblZeroUpY.Text = "Y : " + t.getZeroing().calculateY(true);	// Y : -2.42
 
             // txtComment1 : textbox of the target's comment
             this.txtComment.Location = new System.Drawing.Point(167, 62);
@@ -249,10 +249,117 @@ namespace Magic_Spotter {
             this.lblName.Text = "Target " + t.GetId();
         }
 
-        public Panel getPanel() {
+		public Panel getPanel() {
             return this.panel;
         }
 
+		// Set distance
+		delegate void SetDistanceCallback(int distance);
+		public void SetDistance(int distance) {
+			if (txtDistance.InvokeRequired) {
+				SetDistanceCallback d = new SetDistanceCallback(SetDistance);
+				txtDistance.Invoke(d, new object[] {
+					distance
+				});
+			} else {
+				txtDistance.Text = distance + " m";
+			}
+		}
 
-    }
+		// Set realDistance
+		delegate void SetRealDistanceCallback(int realDistance);
+		public void SetRealDistance(int realDistance) {
+			if (txtRealDistance.InvokeRequired) {
+				SetRealDistanceCallback d = new SetRealDistanceCallback(SetRealDistance);
+				txtRealDistance.Invoke(d, new object[] {
+					realDistance
+				});
+			} else {
+				txtRealDistance.Text = realDistance + " m";
+			}
+		}
+
+		// Set elevation
+		delegate void SetElevationCallback(float elevation);
+		public void SetElevation(float elevation) {
+			if (txtElevation.InvokeRequired) {
+				SetElevationCallback d = new SetElevationCallback(SetElevation);
+				txtDistance.Invoke(d, new object[] {
+					elevation
+				});
+			} else {
+				txtElevation.Text = elevation.ToString();
+			}
+		}
+
+		// Set speed
+		delegate void SetSpeedCallback(Speed speed);
+		public void SetSpeed(Speed speed) {
+			if (txtSpeed.InvokeRequired) {
+				SetSpeedCallback d = new SetSpeedCallback(SetSpeed);
+				txtSpeed.Invoke(d, new object[] {
+					speed
+				});
+			} else {
+				txtSpeed.Text = speed.GetName();
+			}
+		}
+
+		// Set comment
+		delegate void SetCommentCallback(string comment);
+		public void SetComment(string comment) {
+			if (txtComment.InvokeRequired) {
+				SetCommentCallback d = new SetCommentCallback(SetComment);
+				txtComment.Invoke(d, new object[] {
+					comment
+				});
+			} else {
+				txtComment.Text = comment;
+			}
+		}
+
+		//Set zeroing
+		delegate void SetZeroingCallback(Zeroing zero);
+		public void SetZeroing(Zeroing zero) {
+			if (lblZeroLow.InvokeRequired) {
+				SetZeroingCallback d = new SetZeroingCallback(SetZeroing);
+				lblZeroLow.Invoke(d, new object[] {
+					zero
+				});
+			} else {
+				lblZeroLow.Text = zero.GetLower().ToString();
+			}
+
+			if (lblZeroUp.InvokeRequired) {
+				SetZeroingCallback d = new SetZeroingCallback(SetZeroing);
+				lblZeroUp.Invoke(d, new object[] {
+					zero
+				});
+			} else {
+				lblZeroUp.Text = zero.GetUpper().ToString();
+			}
+
+			if (lblZeroLowY.InvokeRequired) {
+				SetZeroingCallback d = new SetZeroingCallback(SetZeroing);
+				lblZeroLowY.Invoke(d, new object[] {
+					zero
+				});
+			} else {
+				lblZeroLowY.Text = "Y : " + zero.calculateY(true);
+			}
+
+			if (lblZeroUpY.InvokeRequired) {
+				SetZeroingCallback d = new SetZeroingCallback(SetZeroing);
+				lblZeroUpY.Invoke(d, new object[] {
+					zero
+				});
+			} else {
+				lblZeroUpY.Text = "Y : " + zero.calculateY(false);
+			}
+
+
+
+
+		}
+	}
 }

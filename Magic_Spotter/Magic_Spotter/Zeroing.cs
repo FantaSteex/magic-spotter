@@ -12,8 +12,12 @@ namespace Magic_Spotter {
     class Zeroing {
         private int lower { get; set; }	// Lower value of the zero 
         private int upper { get; set; }	// Upper value of the zero
-        
-        public Zeroing(int distance) {
+        private int distance { get; set; }	// Distance we build the zeroing around
+		private Speed speed { get; set; }	// Speed we build the zeroing around
+
+        public Zeroing(int distance, Speed speed) {
+			this.distance = distance;
+			this.speed = speed;
 			zero(distance);
         }
 
@@ -50,12 +54,12 @@ namespace Magic_Spotter {
         /// <param name="distance">Integer representing the distance to the target in meters (between 0 and 2500)</param>
         /// <param name="speed">Instance of the class Speed that represents the speed of the target with two attributes : name and value (ex : </param>
         /// <returns></returns>
-        public double calculateX(bool useLowerZero, int distance, Speed speed) {
+        public double calculateX(bool useLowerZero) {
             // TODO facultatif : calcul en fonction de la distance, du temps de vol et de la vitesse de la cible
             return 0;
         }
 
-        public double calculateY(bool useLowerZero, int distance) {
+        public double calculateY(bool useLowerZero) {
 			Debug.WriteLine("calculating Y : {0} {1}", useLowerZero, distance);
 			/*
 				distance = 1268, lower = 1200, upper = 1300

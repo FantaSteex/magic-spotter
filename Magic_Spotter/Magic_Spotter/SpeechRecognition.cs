@@ -60,7 +60,7 @@ namespace Magic_Spotter {
 		/// <param name="sender">Probably the keywordsEngine, but I'm not sure. Anyway, it doesn't matter.</param>
 		/// <param name="e">KeywordsRecognizedEventArgs that will contain the recognized text</param>
 		private void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e) {
-			Debug.WriteLine("Speech recognized : " + e.Result.Text);
+			//Debug.WriteLine("Speech recognized : " + e.Result.Text);
 			recognized(this, new FreeSpeechRecognizedEventArgs(e.Result.Text));
 		}
 
@@ -68,7 +68,7 @@ namespace Magic_Spotter {
 		/// Initializes a DictationGrammar that will allow the user to dictate free text to the application
 		/// </summary>
 		private void loadGrammarAndCommands() {
-			Debug.WriteLine("Speech loadGrammar");
+			//Debug.WriteLine("Speech loadGrammar");
 			try {
 				DictationGrammar wordsList = new DictationGrammar();
 				wordsList.Name = "Dictation par défaut";
@@ -87,9 +87,9 @@ namespace Magic_Spotter {
 		protected static string strCleaner(string str) {
 			str = strKeepOnlyText(str);
 			string[] splitString = str.Split(' ');
-			Debug.WriteLine("Split string : " + str);
+			//Debug.WriteLine("Split string : " + str);
 			foreach (string s in splitString) {
-				Debug.WriteLine(s);
+				//Debug.WriteLine(s);
 			}
 			return str;
 		}

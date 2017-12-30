@@ -30,9 +30,9 @@ namespace Magic_Spotter {
             this.alive = true;
             this.distance = 500;
             this.elevation = 0;
-            this.speed = new Speed("static");
+            this.speed = new Speed("Statique");
             this.comment = "";
-            this.zeroing = new Zeroing(500);
+            this.zeroing = new Zeroing(500, this.speed);
             this.targetInterface = new TargetUI(this);
         }
 
@@ -46,7 +46,8 @@ namespace Magic_Spotter {
         /// </summary>
         /// <returns>Returns an integer</returns>
         public int realDistance() {
-            return (int)(this.distance * Math.Cos(this.elevation * Math.PI / 180));
+			int realDistance = (int)(this.distance * Math.Cos(this.elevation * Math.PI / 180));
+			return realDistance;
         }
 
         /// <summary>
@@ -82,19 +83,28 @@ namespace Magic_Spotter {
 
         public void SetDistance(int distance) {
             this.distance = distance;
-			this.zeroing.zero(distance);
+			this.zeroing = new Zeroing(realDistance(), this.speed);
+			this.targetInterface.SetDistance(distance);
+			this.targetInterface.SetRealDistance(realDistance());
+			this.targetInterface.SetZeroing(this.zeroing);
 		}
 
         public void SetElevation(float elevation) {
             this.elevation = elevation;
-        }
+			this.targetInterface.SetElevation(elevation);
+			this.targetInterface.SetRealDistance(realDistance());
+			this.zeroing = new Zeroing(realDistance(), this.speed);
+			this.targetInterface.SetZeroing(this.zeroing);
+		}
 
         public void SetSpeed(Speed speed) {
             this.speed = speed;
+			this.targetInterface.SetSpeed(speed);
         }
 
         public void SetComment(string comment) {
             this.comment = comment;
+			this.targetInterface.SetComment(comment);
         }
 
         public void SetZeroing(Zeroing zeroing) {

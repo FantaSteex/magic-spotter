@@ -23,16 +23,16 @@ namespace Magic_Spotter {
         public void adjustSpeed(string name) {
             this.name = name;
             switch (name.ToLower()) {
-                case "static":
+                case "Statique":
                     this.speed = 0;
                     break;
-                case "search":
+                case "Recherche":
                     this.speed = 3.5;
                     break;
-                case "patrol":
+                case "Patrouille":
                     this.speed = 8.0;
                     break;
-                case "run":
+                case "Course":
                     this.speed = 13.5;
                     break;
                 default:
