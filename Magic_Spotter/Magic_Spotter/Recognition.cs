@@ -21,7 +21,9 @@ namespace Magic_Spotter {
 		protected SpeechRecognitionEngine speechRecognitionEngine { get; set; }		// Engin that makes the vocal recognition
 		protected Boolean running { get; set; }	// Determines wether the recognition is running or not
 		public event EventHandler stopping = delegate { };	// Event triggered when recognition is stopped
-		public event EventHandler starting = delegate { };	// Event triggered when recognition starts
+		public event EventHandler starting = delegate { };  // Event triggered when recognition starts
+		
+
 
 		public Recognition(Boolean run = false) {
 			this.running = run;

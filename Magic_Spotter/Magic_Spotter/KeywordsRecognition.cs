@@ -13,14 +13,17 @@ namespace Magic_Spotter {
 	class KeywordsRecognition : Recognition {
 
 		// A list of Word that contains every word the class can recognize
-		private List<Word> words;
+		private Choices texts;
+		public event KeywordRecognizedEventHandler<KeywordRecognizedEventArgs> recognized = delegate { };  // Event triggered when a keyword is recognized
 
+		public delegate void KeywordRecognizedEventHandler<KeywordRecognizedEventArgs>(object sender, KeywordRecognizedEventArgs args);
+		
 		/// <summary>
 		/// Instanciates an empty list of Word, sets the parameters for the speechEngine and loads the grammar.
 		/// </summary>
 		/// <param name="run">Boolean that determines wether the recognition will begin on instanciation or not. If True the recognition will start on instanciation.</param>
 		public KeywordsRecognition(Boolean run = false) : base(run) {
-			this.words = new List<Word>();
+			this.texts = new Choices();
 			this.speechRecognitionEngine = createSpeechEngine("fr-FR");
 			this.speechRecognitionEngine.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(recognizer_SpeechRecognized);
 			loadGrammarAndCommands();
@@ -31,6 +34,7 @@ namespace Magic_Spotter {
 		}
 
 		
+		
 		/// <summary>
 		/// Method called when a word is recognized by the speechRecognitionEngine.
 		/// </summary>
@@ -38,12 +42,11 @@ namespace Magic_Spotter {
 		/// <param name="e">SpeechRecognizedEventArgs that will contain the recognized text</param>
 		private void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e) {
 			// Found on https://msdn.microsoft.com/fr-fr/library/system.speech.recognition.speechrecognizer.speechrecognized(v=vs.110).aspx
-			if (e.Result.Text == "Elévation") {
-				Debug.WriteLine("Stopping KR : " + e.Result.Text);
-				stop();
-			}
 			Debug.WriteLine("Keyword recognized : " + e.Result.Text);
+			recognized(this, new KeywordRecognizedEventArgs(e.Result.Text));
+			
 		}
+		
 
 		/// <summary>
 		/// Adds the keywords to the grammar.
@@ -51,21 +54,22 @@ namespace Magic_Spotter {
 		private void loadGrammarAndCommands() {
 			Debug.WriteLine("Keywords loadGrammar");
 			try {
-				Choices texts = new Choices();
-				words.Add(new Word("Distance"));
-				words.Add(new Word("Mètre"));
-				words.Add(new Word("Elévation"));
-				words.Add(new Word("1"));
-				words.Add(new Word("866"));
-				words.Add(new Word("2222"));
-				words.Add(new Word("Nouvelle cible"));
-				texts.Add("Distance");
-				texts.Add("Mètre");
-				texts.Add("Elévation");
-				texts.Add("1");
-				texts.Add("866");
-				texts.Add("2222");
 				texts.Add("Nouvelle cible");
+				texts.Add("Distance");
+				texts.Add("Mètres");
+				texts.Add("Elévation");
+				texts.Add("Vitesse");
+				texts.Add("Commentaire");
+				texts.Add("Annuler");
+				texts.Add("Terminé");
+				texts.Add("J'engage l'ennemi");
+				texts.Add("Statique");
+				texts.Add("Recherche");
+				texts.Add("Patrouille");
+				texts.Add("Course");
+				texts.Add("Distance");
+				texts.Add("Elimination confirmée");
+
 
 				Grammar wordsList = new Grammar(new GrammarBuilder(texts));
 				wordsList.Name = "Dictation par défaut";
@@ -77,4 +81,17 @@ namespace Magic_Spotter {
 		}
 
 	}
+
+	public class KeywordRecognizedEventArgs : EventArgs {
+
+		private readonly string text;
+
+		public KeywordRecognizedEventArgs(string t) {
+			this.text = t;
+		}
+
+		public string GetText() { return this.text;}
+	}
+	
+
 }

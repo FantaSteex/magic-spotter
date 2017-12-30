@@ -36,6 +36,10 @@ namespace Magic_Spotter {
 			"au"
 		};  // Antidictionary that contains every value we want to remove from a string to clean it and keep only important words
 
+		public event FreeSpeechRecognizedEventHandler<FreeSpeechRecognizedEventArgs> recognized = delegate { };  // Event triggered when a keyword is recognized
+
+		public delegate void FreeSpeechRecognizedEventHandler<FreeSpeechRecognizedEventArgs>(object sender, FreeSpeechRecognizedEventArgs args);
+
 		/// <summary>
 		/// Instanciates an empty list of Word, sets the parameters for the speechEngine and loads the grammar.
 		/// </summary>
@@ -57,6 +61,7 @@ namespace Magic_Spotter {
 		/// <param name="e">KeywordsRecognizedEventArgs that will contain the recognized text</param>
 		private void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e) {
 			Debug.WriteLine("Speech recognized : " + e.Result.Text);
+			recognized(this, new FreeSpeechRecognizedEventArgs(e.Result.Text));
 		}
 
 		/// <summary>
@@ -88,5 +93,16 @@ namespace Magic_Spotter {
 			}
 			return str;
 		}
+	}
+
+	public class FreeSpeechRecognizedEventArgs : EventArgs {
+
+		private readonly string text;
+
+		public FreeSpeechRecognizedEventArgs(string t) {
+			this.text = t;
+		}
+
+		public string GetText() { return this.text; }
 	}
 }
