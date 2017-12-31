@@ -266,6 +266,16 @@ namespace Magic_Spotter {
             return this.panel;
         }
 
+		/*********************
+		 * Thread-safe calls *
+		 *********************/
+
+		/*
+			The following part is about Thread-safe calls. Since the vocal recognition is made in a thread and the Form1 is handle in another, it is mandatory to
+			use those Thread-safe calls to modify the UI from a recognition event. The recognition methods are calling stuff like SetDistance or SetRealDistance 
+			on a target's TargetUI and the UI updating is handled here.
+		*/
+		
 		// Set distance
 		delegate void SetDistanceCallback(int distance);
 		public void SetDistance(int distance) {

@@ -67,6 +67,10 @@ namespace Magic_Spotter {
 			engage(false);
         }
 
+		/// <summary>
+		/// Engages the target by coloring its zeroing labels in red (or black if we disengage)
+		/// </summary>
+		/// <param name="engaging">True for engaging (colors labels in red), false for disengaging (colors labels in black)</param>
 		public void engage(bool engaging) {
 			if(engaging)
 				this.targetInterface.SetZeroingColor(System.Drawing.Color.Red);
