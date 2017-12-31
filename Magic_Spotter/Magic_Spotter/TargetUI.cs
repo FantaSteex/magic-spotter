@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Magic_Spotter {
 	/// <summary>
@@ -32,7 +26,7 @@ namespace Magic_Spotter {
         private Label lblRealDistance { get; set; }
         private Label lblDistance { get; set; }
         private Label lblName { get; set; }
-
+		private Label lblEliminated { get; set; }
 
         public TargetUI(Target t) {
 
@@ -57,6 +51,7 @@ namespace Magic_Spotter {
             this.lblRealDistance = new Label();
             this.lblDistance = new Label();
             this.lblName = new Label();
+			this.lblEliminated = new Label();
 
 			// panel1 : Panel that contains the whole target 1's interface
 			this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -73,6 +68,7 @@ namespace Magic_Spotter {
             this.panel.Controls.Add(this.lblRealDistance);
             this.panel.Controls.Add(this.lblDistance);
             this.panel.Controls.Add(this.lblName);
+			this.panel.Controls.Add(this.lblEliminated);
             this.panel.Location = new System.Drawing.Point(3, 3);
             this.panel.Name = "panel" + t.GetId();
             this.panel.Size = new System.Drawing.Size(730, 118);
@@ -161,6 +157,7 @@ namespace Magic_Spotter {
             this.txtComment.Size = new System.Drawing.Size(173, 51);
             this.txtComment.TabIndex = 13;
             this.txtComment.Text = t.GetComment();
+			this.txtComment.ReadOnly = true;
 
 			// txtSpeed1 : textbox of the target's speed
 			this.txtSpeed.Location = new System.Drawing.Point(40, 62);
@@ -168,6 +165,7 @@ namespace Magic_Spotter {
             this.txtSpeed.Size = new System.Drawing.Size(62, 20);
             this.txtSpeed.TabIndex = 12;
             this.txtSpeed.Text = t.GetSpeed().GetName();
+			this.txtSpeed.ReadOnly = true;
 
 			// txtRealDistance1 : textbox of the target's real distance
 			this.txtRealDistance.Location = new System.Drawing.Point(294, 35);
@@ -175,6 +173,7 @@ namespace Magic_Spotter {
             this.txtRealDistance.Size = new System.Drawing.Size(46, 20);
             this.txtRealDistance.TabIndex = 11;
             this.txtRealDistance.Text = t.realDistance() + " m";
+			this.txtRealDistance.ReadOnly = true;
 
 			// txtElevation1 : textbox of the target's elevation
 			this.txtElevation.Location = new System.Drawing.Point(167, 35);
@@ -182,6 +181,7 @@ namespace Magic_Spotter {
             this.txtElevation.Size = new System.Drawing.Size(43, 20);
             this.txtElevation.TabIndex = 10;
             this.txtElevation.Text = t.GetElevation().ToString();
+			this.txtElevation.ReadOnly = true;
 
 			// txtDistance1 : textbox of the target's measured distance
 			this.txtDistance.Location = new System.Drawing.Point(58, 35);
@@ -189,9 +189,10 @@ namespace Magic_Spotter {
             this.txtDistance.Size = new System.Drawing.Size(44, 20);
             this.txtDistance.TabIndex = 9;
             this.txtDistance.Text = t.GetDistance() + " m";
+			this.txtDistance.ReadOnly = true;
 
-            // lblZero1 : label of the zeroing part's title
-            this.lblZero.AutoSize = true;
+			// lblZero1 : label of the zeroing part's title
+			this.lblZero.AutoSize = true;
             this.lblZero.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZero.Location = new System.Drawing.Point(724, 18);
             this.lblZero.Name = "lblZero" + t.GetId();
@@ -247,7 +248,19 @@ namespace Magic_Spotter {
             this.lblName.Size = new System.Drawing.Size(123, 31);
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Target " + t.GetId();
-        }
+
+			// lblEliminated1 : shown only when target is eliminated
+			this.lblEliminated.AutoSize = true;
+			this.lblEliminated.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblEliminated.ForeColor = System.Drawing.Color.Red;
+			this.lblEliminated.Location = new System.Drawing.Point(450, -1);
+			this.lblEliminated.Name = "lblEliminated" + t.GetId();
+			this.lblEliminated.Size = new System.Drawing.Size(123, 31);
+			this.lblEliminated.TabIndex = 0;
+			this.lblEliminated.Text = "Eliminated";
+			this.lblEliminated.Visible = false;
+			
+		}
 
 		public Panel getPanel() {
             return this.panel;
@@ -357,9 +370,77 @@ namespace Magic_Spotter {
 				lblZeroUpY.Text = "Y : " + zero.calculateY(false);
 			}
 
+		}
 
+		// Set Zeroing color highlight
+		delegate void SetZeroingColorCallback(System.Drawing.Color color);
+		public void SetZeroingColor(System.Drawing.Color color) {
+			if (lblZeroLow.InvokeRequired) {
+				SetZeroingColorCallback d = new SetZeroingColorCallback(SetZeroingColor);
+				lblZeroLow.Invoke(d, new object[] {
+					color
+				});
+			} else {
+				lblZeroLow.ForeColor = color;
+			}
 
+			if (lblZeroLowX.InvokeRequired) {
+				SetZeroingColorCallback d = new SetZeroingColorCallback(SetZeroingColor);
+				lblZeroLowX.Invoke(d, new object[] {
+					color
+				});
+			} else {
+				lblZeroLowX.ForeColor = color;
+			}
 
+			if (lblZeroLowY.InvokeRequired) {
+				SetZeroingColorCallback d = new SetZeroingColorCallback(SetZeroingColor);
+				lblZeroLowY.Invoke(d, new object[] {
+					color
+				});
+			} else {
+				lblZeroLowY.ForeColor = color;
+			}
+
+			if (lblZeroUp.InvokeRequired) {
+				SetZeroingColorCallback d = new SetZeroingColorCallback(SetZeroingColor);
+				lblZeroUp.Invoke(d, new object[] {
+					color
+				});
+			} else {
+				lblZeroUp.ForeColor = color;
+			}
+
+			if (lblZeroUpX.InvokeRequired) {
+				SetZeroingColorCallback d = new SetZeroingColorCallback(SetZeroingColor);
+				lblZeroUpX.Invoke(d, new object[] {
+					color
+				});
+			} else {
+				lblZeroUpX.ForeColor = color;
+			}
+
+			if (lblZeroUpY.InvokeRequired) {
+				SetZeroingColorCallback d = new SetZeroingColorCallback(SetZeroingColor);
+				lblZeroUpY.Invoke(d, new object[] {
+					color
+				});
+			} else {
+				lblZeroUpY.ForeColor = color;
+			}
+		}
+
+		// Set eliminated visibility
+		delegate void SetEliminatedCallback(bool elim);
+		public void SetEliminated(bool elim) {
+			if (lblEliminated.InvokeRequired) {
+				SetEliminatedCallback d = new SetEliminatedCallback(SetEliminated);
+				lblEliminated.Invoke(d, new object[] {
+					elim
+				});
+			} else {
+				lblEliminated.Visible= elim;
+			}
 		}
 	}
 }

@@ -63,7 +63,20 @@ namespace Magic_Spotter {
         /// </summary>
         public void eliminate() {
             this.alive = false;
+			this.targetInterface.SetEliminated(true);
+			engage(false);
         }
+
+		public void engage(bool engaging) {
+			if(engaging)
+				this.targetInterface.SetZeroingColor(System.Drawing.Color.Red);
+			else
+				this.targetInterface.SetZeroingColor(System.Drawing.Color.Black);
+		}
+
+		public void highlight() {
+
+		}
 
         /***********
          * Getters *

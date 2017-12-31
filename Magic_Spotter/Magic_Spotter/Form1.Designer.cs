@@ -47,7 +47,7 @@
 			this.panRecap.Controls.Add(this.lblProcess);
 			this.panRecap.Location = new System.Drawing.Point(0, 0);
 			this.panRecap.Name = "panRecap";
-			this.panRecap.Size = new System.Drawing.Size(746, 32);
+			this.panRecap.Size = new System.Drawing.Size(746, 45);
 			this.panRecap.TabIndex = 0;
 			this.panRecap.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
 			// 
@@ -66,9 +66,9 @@
 			this.lblProcess.AutoSize = true;
 			this.lblProcess.Location = new System.Drawing.Point(171, 9);
 			this.lblProcess.Name = "lblProcess";
-			this.lblProcess.Size = new System.Drawing.Size(216, 13);
+			this.lblProcess.Size = new System.Drawing.Size(249, 13);
 			this.lblProcess.TabIndex = 0;
-			this.lblProcess.Text = "L\'état courant de l\'application sera affiché ici";
+			this.lblProcess.Text = "Créez une nouvelle cible en disant \"Nouvelle cible\"";
 			// 
 			// panVocRec
 			// 
@@ -80,10 +80,10 @@
 			// flpMain
 			// 
 			this.flpMain.AutoScroll = true;
-			this.flpMain.Location = new System.Drawing.Point(0, 31);
+			this.flpMain.Location = new System.Drawing.Point(0, 44);
 			this.flpMain.Name = "flpMain";
 			this.flpMain.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.flpMain.Size = new System.Drawing.Size(746, 445);
+			this.flpMain.Size = new System.Drawing.Size(746, 432);
 			this.flpMain.TabIndex = 2;
 			this.flpMain.Paint += new System.Windows.Forms.PaintEventHandler(this.flpMain_Paint);
 			// 

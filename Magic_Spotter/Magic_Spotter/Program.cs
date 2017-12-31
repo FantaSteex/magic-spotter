@@ -14,15 +14,16 @@ namespace Magic_Spotter {
 	static class Program {
 
 		public static Dictionary<string, string> processToUI = new Dictionary<string, string>() {
-			{ "", "Donnez un mot-clef : <<Nouvelle cible>> ou <<J'engage l'ennemi>>"},
-			{ "nouvelle cible", "Création d'une nouvelle cible"},
-			{ "modifier", "Modification de la cible" },
-			{ "distance", "Donnez un nombre allant de 0 à 2500"},
-			{ "elevation", "Donnez un nombre allant de -90.0 à 90.0"},
-			{ "vitesse", "Donnez une vitesse : Statique, Recherche, Patrouille ou Course"},
-			{ "commentaire", "Donnez une courte description de la cible"},
-			{ "engager ennemi", "Donnez l'identifiant (nombre) d'une cible"},
-			{ "cible engagée", "Dites <<Elimination confirmée>> ou <<Annuler>> pour changer de cible"}
+			{ "", "Donnez un mot-clef : <<Nouvelle cible>>, <<Modifier>> ou <<J'engage l'ennemi>>"},
+			{ "nouvelle cible", "Création d'une nouvelle cible. Dites <<Distance>>, <Elevation>>, <<Vitesse>> ou <<Commentaire>>"},
+			{ "distance", "Distance : donnez un nombre allant de 0 à 2500"},
+			{ "elevation", "Elévation : donnez un nombre allant de -90.0 à 90.0"},
+			{ "vitesse", "Vitesse : <<Statique>>, <<Recherche>>, <<Patrouille>> ou <<Course>>"},
+			{ "commentaire", "Commentaire : donnez une courte description de la cible"},
+			{ "engager ennemi", "Engagement de l'ennemi : donnez l'identifiant (nombre) d'une cible"},
+			{ "cible engagée", "Cible engagée : <<Elimination confirmée>>, <<Annuler>> pour changer de cible \nou <<Terminé>> pour arrêter d'engager les cibles"},
+			{ "modifier", "Modifier une cible : donnez l'identifiant (nombre) d'une cible" },
+			{ "modification", "Modification de la cible : <<Distance>>, <Elevation>>, <<Vitesse>> ou <<Commentaire>>" }
 		};	// Dictionary that gives a label for each process (label will be shown to the user)
 		static Dictionary<int, Target> targets = new Dictionary<int, Target>(); // Dictionary that contains every target instanciated in the application
 		static SpeechRecognition speechRecognizer = new SpeechRecognition();    // SpeechRecognition engine used to recognized free text
@@ -109,30 +110,43 @@ namespace Magic_Spotter {
 
 		// Keyword recognized
 		static void OnKeywordsRecognizerRecognized(object sender, KeywordRecognizedEventArgs e) {
-			Debug.WriteLine("keyword Recognized in program : " + e.GetText());
-			Debug.WriteLine("Process {0} target {1}", currentProcess, currentTargetId);
-			form.SetLabelRecognitionText(e.GetText());
-			int targetId = 0;
-			if (currentProcess == "engager ennemi") {
-				Debug.WriteLine("Engager ennemi");
-				if (int.TryParse(e.GetText(), out targetId)) {
-					Debug.WriteLine("Target engaged : " + targetId);
+
+			form.SetLabelRecognitionText(e.GetText());	// Updates lblRecognition's Text with recognized vocal's value
+
+			int targetId = 0;   // Will be the said target id 
+			if (currentProcess == "engager ennemi") {   // Engaging ennemi
+				if (int.TryParse(e.GetText(), out targetId)) {  // Integer given by user, will be the target's id
 					currentTargetId = targetId;
 					engageEnnemi(currentTargetId);
-				} else {
-					Debug.WriteLine("Nope : " + e.GetText());
-					if (e.GetText() == "Elimination confirmée" && currentTargetId != 0) {
-						targets[currentTargetId].eliminate();
-					} else if (e.GetText() == "Terminé") {
+				} else {    // Text given by the user
+					if (e.GetText() == "Terminé") { // Returns to waiting process
 						currentTargetId = 0;
 						updateProcess("", "");
 					}
 				}
-
-			} else if (int.TryParse(e.GetText(), out targetId) && currentProcess == "") {
-				if(targets.ContainsKey(targetId)) {
-					currentTargetId = targetId;
-					updateProcess("modifier", "");
+			} else if (currentProcess == "cible engagée") { // Target engaged
+				if (e.GetText() == "Elimination confirmée" && currentTargetId != 0) {   // Eliminate the engaged target
+					targets[currentTargetId].eliminate();
+					currentTargetId = 0;
+					updateProcess("engager ennemi", "");    // Return to engaging process, will wait another target's id
+				} else if (e.GetText() == "Terminé") {  // Returns to waiting process
+					disengageEnnemi(currentTargetId);
+					currentTargetId = 0;
+					updateProcess("", "");
+				} else if (e.GetText() == "Annuler") {  // Returns to engaging process, will wait a target's id
+					disengageEnnemi(currentTargetId);
+					currentTargetId = 0;
+					updateProcess("engager ennemi", "");
+				}
+			} else if (currentProcess == "modifier") {
+				Debug.WriteLine("Modifier Debut");
+				if (int.TryParse(e.GetText(), out targetId)) {  // Target's id given, want to modify it
+					Debug.WriteLine("Modifier yes");
+					if (targets.ContainsKey(targetId)) {
+						currentTargetId = targetId;
+						updateProcess("modification");
+						Debug.WriteLine("New process : " + currentProcess);
+					}
 				}
 			} else {
 				switch (e.GetText()) {
@@ -145,23 +159,26 @@ namespace Magic_Spotter {
 						}
 						break;
 					case "Distance":
-						if (currentTargetId != 0 && currentProcess == "nouvelle cible") {
+						if (currentTargetId != 0 && (currentProcess == "nouvelle cible" || currentProcess == "modification")) {
 							updateProcess("distance");
 							keywordsRecognizer.stop();
 						}
 						break;
 					case "Elévation":
-						if (currentTargetId != 0 && currentProcess == "nouvelle cible") {
+						if (currentTargetId != 0 && (currentProcess == "nouvelle cible" || currentProcess == "modification")) {
 							updateProcess("elevation");
 							keywordsRecognizer.stop();
 						}
 						break;
 					case "Vitesse":
-						if (currentTargetId != 0 && currentProcess == "nouvelle cible") {
+						if (currentTargetId != 0 && (currentProcess == "nouvelle cible" || currentProcess == "modification")) {
 							updateProcess("vitesse");
 						}
 						break;
-					case "Statique": case "Patrouille": case "Recherche": case "Course":    // A speed is given by the user
+					case "Statique":
+					case "Patrouille":
+					case "Recherche":
+					case "Course":    // A speed is given by the user
 						if (currentTargetId != 0 && currentProcess == "vitesse") {
 							Debug.WriteLine("Target {0} speed : {1}", currentTargetId, targets[currentTargetId].GetSpeed());
 							targets[currentTargetId].SetSpeed(new Speed(e.GetText()));
@@ -170,18 +187,24 @@ namespace Magic_Spotter {
 						}
 						break;
 					case "Commentaire":
-						if (currentTargetId != 0 && currentProcess == "nouvelle cible") {
+						if (currentTargetId != 0 && (currentProcess == "nouvelle cible" || currentProcess == "modification")) {
 							updateProcess("commentaire");
 							keywordsRecognizer.stop();
 						}
 						break;
 					case "Terminé":
+					case "Annuler":
 						updateProcess("");
 						currentTargetId = 0;
 						break;
 					case "J'engage l'ennemi":
 						if (currentTargetId == 0 && currentProcess == "") {
 							updateProcess("engager ennemi");
+						}
+						break;
+					case "Modifier":
+						if (currentTargetId == 0 && currentProcess == "") {
+							updateProcess("modifier");
 						}
 						break;
 				}
@@ -235,10 +258,23 @@ namespace Magic_Spotter {
 		static void engageEnnemi(int targetId) {
 			if(targets.ContainsKey(targetId)) {
 				Debug.WriteLine("Engaging ennemi {0} : {1} {2}", targetId, targets[targetId].realDistance(), targets[targetId].GetElevation());
+				currentTargetId = targetId;
+				targets[targetId].engage(true);
+				updateProcess("cible engagée");
 			} else {
 				Debug.WriteLine("Can't engage ennemi {0}", targetId);
 			}
 			
+		}
+
+		static void disengageEnnemi(int targetId) {
+			if (targets.ContainsKey(targetId)) {
+				Debug.WriteLine("Disengaging ennemi {0} : {1} {2}", targetId, targets[targetId].realDistance(), targets[targetId].GetElevation());
+				currentTargetId = 0;
+				targets[targetId].engage(false);
+			} else {
+				Debug.WriteLine("Can't disengage ennemi {0}", targetId);
+			}
 		}
 
 		static void updateProcess(string p) {
