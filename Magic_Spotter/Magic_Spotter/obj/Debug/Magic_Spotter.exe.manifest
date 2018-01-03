@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Magic_Spotter.exe" size="46032">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Magic_Spotter.exe" size="45520">
       <assemblyIdentity name="Magic_Spotter" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>n3T2N5vCg9pe6H/Wd8E9ciyrjiaOtMwO0bvm2DGybQ8=</dsig:DigestValue>
+        <dsig:DigestValue>m7+r60jHnWjqQjZ6n8nowrMWtiAg5ViZpc5e4OmbwG0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

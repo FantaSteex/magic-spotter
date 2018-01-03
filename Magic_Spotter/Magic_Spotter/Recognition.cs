@@ -24,7 +24,10 @@ namespace Magic_Spotter {
 		public event EventHandler starting = delegate { };  // Event triggered when recognition starts
 		
 
-
+		/// <summary>
+		/// Constructor of the class
+		/// </summary>
+		/// <param name="run">Determines wether the recognitionEngine will directly start or not</param>
 		public Recognition(Boolean run = false) {
 			this.running = run;
 		}

@@ -28,12 +28,12 @@ namespace Magic_Spotter {
         public Target(int id) {
             this.id = id;
             this.alive = true;
-            this.distance = 500;
-            this.elevation = 0;
+            this.distance = 500;    // Zero's default value is 500m on most of the snipers
+			this.elevation = 0;
             this.speed = new Speed("Statique");
             this.comment = "";
-            this.zeroing = new Zeroing(500, this.speed);
-            this.targetInterface = new TargetUI(this);
+            this.zeroing = new Zeroing(500, this.speed);    // Zero's default value is 500m on most of the snipers
+			this.targetInterface = new TargetUI(this);
         }
 
 
@@ -78,6 +78,9 @@ namespace Magic_Spotter {
 				this.targetInterface.SetZeroingColor(System.Drawing.Color.Black);
 		}
 
+		/// <summary>
+		/// Might be used to highlight the target during its modification
+		/// </summary>
 		public void highlight() {
 
 		}
@@ -101,6 +104,8 @@ namespace Magic_Spotter {
         public void SetDistance(int distance) {
             this.distance = distance;
 			this.zeroing = new Zeroing(realDistance(), this.speed);
+
+			// Updates interface for : distance, real distance and zeroing
 			this.targetInterface.SetDistance(distance);
 			this.targetInterface.SetRealDistance(realDistance());
 			this.targetInterface.SetZeroing(this.zeroing);
@@ -108,6 +113,8 @@ namespace Magic_Spotter {
 
         public void SetElevation(float elevation) {
             this.elevation = elevation;
+
+			// Updates interface for : elevation, real distance and zeroing
 			this.targetInterface.SetElevation(elevation);
 			this.targetInterface.SetRealDistance(realDistance());
 			this.zeroing = new Zeroing(realDistance(), this.speed);
@@ -116,11 +123,15 @@ namespace Magic_Spotter {
 
         public void SetSpeed(Speed speed) {
             this.speed = speed;
+			
+			// Updates interface for : speed
 			this.targetInterface.SetSpeed(speed);
         }
 
         public void SetComment(string comment) {
             this.comment = comment;
+
+			// Updates the interface for : comment
 			this.targetInterface.SetComment(comment);
         }
 

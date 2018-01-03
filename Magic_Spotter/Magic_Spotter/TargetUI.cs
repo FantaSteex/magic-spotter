@@ -29,7 +29,6 @@ namespace Magic_Spotter {
 		private Label lblEliminated { get; set; }
 
         public TargetUI(Target t) {
-
 			
             this.panel = new Panel();	
 			this.spcZero = new SplitContainer();

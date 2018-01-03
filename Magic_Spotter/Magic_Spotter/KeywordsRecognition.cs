@@ -14,8 +14,9 @@ namespace Magic_Spotter {
 
 		// A list of Word that contains every word the class can recognize
 		private Choices texts;
-		public event KeywordRecognizedEventHandler<KeywordRecognizedEventArgs> recognized = delegate { };  // Event triggered when a keyword is recognized
 
+		// Event triggered when a keyword is recognized
+		public event KeywordRecognizedEventHandler<KeywordRecognizedEventArgs> recognized = delegate { };  
 		public delegate void KeywordRecognizedEventHandler<KeywordRecognizedEventArgs>(object sender, KeywordRecognizedEventArgs args);
 		
 		/// <summary>
@@ -52,7 +53,7 @@ namespace Magic_Spotter {
 		/// Adds the keywords to the grammar.
 		/// </summary>
 		private void loadGrammarAndCommands() {
-			//Debug.WriteLine("Keywords loadGrammar");
+			// Loads the keywords for the grammar
 			try {
 				texts.Add("Nouvelle cible");
 				texts.Add("Distance");
@@ -70,10 +71,9 @@ namespace Magic_Spotter {
 				texts.Add("Elimination confirmée");
 				texts.Add("Modifier");
 
-				// Allows the keywords grammar to recognize integers from 1 to 100. Not the prettiest solution, but both ways are ugly.
-				for (int i = 1; i <= 100; i++)	
+				// Allows the keywords grammar to recognize integers from 1 to 100. Easier to handle and provides a better recognition quality
+				for (int i = 1; i <= 100; i++)
 					texts.Add(i.ToString());
-
 
 				Grammar wordsList = new Grammar(new GrammarBuilder(texts));
 				wordsList.Name = "Dictation par défaut";
@@ -86,6 +86,9 @@ namespace Magic_Spotter {
 
 	}
 
+	/// <summary>
+	/// New type of event that will allow us to pass recognized text (here the string text) to other methods that will handle the event (e.g : Program.OnKeywordsRecognizerRecognized will be able to get the recognized text
+	/// </summary>
 	public class KeywordRecognizedEventArgs : EventArgs {
 
 		private readonly string text;

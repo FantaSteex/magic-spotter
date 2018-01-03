@@ -1,0 +1,13 @@
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\bin\Release\Magic_Spotter.exe.config
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\bin\Release\Magic_Spotter.exe.manifest
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\bin\Release\Magic_Spotter.application
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\bin\Release\Magic_Spotter.exe
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\bin\Release\Magic_Spotter.pdb
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Release\Magic_Spotter.Form1.resources
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Release\Magic_Spotter.Properties.Resources.resources
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Release\Magic_Spotter.csproj.GenerateResource.Cache
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Release\Magic_Spotter.csproj.CoreCompileInputs.cache
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Release\Magic_Spotter.exe.manifest
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Release\Magic_Spotter.application
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Release\Magic_Spotter.exe
+C:\Users\Steex\Documents\Master\M2\Dot_Net\magic-spotter\Magic_Spotter\Magic_Spotter\obj\Release\Magic_Spotter.pdb

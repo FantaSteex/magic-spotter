@@ -33,11 +33,26 @@ namespace Magic_Spotter {
 			"en",
 			"si",
 			"du",
-			"au"
+			"au",
+			"mois",
+			"moins"
 		};  // Antidictionary that contains every value we want to remove from a string to clean it and keep only important words
 
-		public event FreeSpeechRecognizedEventHandler<FreeSpeechRecognizedEventArgs> recognized = delegate { };  // Event triggered when a keyword is recognized
+		private static Dictionary<string, int> stringToInt = new Dictionary<string, int>() {
+			{ "zéro", 0},
+			{ "un", 1},
+			{ "deux", 2},
+			{ "trois", 3},
+			{ "quatre", 4},
+			{ "cinq", 5},
+			{ "six", 6},
+			{ "sept", 7},
+			{ "huit", 8},
+			{ "neuf", 9},
+		};	// Speech recognition gets integers from 0 to 9 in full text (zero for 0, un for 1...). This dictionary will convert the string number to its int version
 
+		// Event triggered when a keyword is recognized
+		public event FreeSpeechRecognizedEventHandler<FreeSpeechRecognizedEventArgs> recognized = delegate { };  
 		public delegate void FreeSpeechRecognizedEventHandler<FreeSpeechRecognizedEventArgs>(object sender, FreeSpeechRecognizedEventArgs args);
 
 		/// <summary>
@@ -61,7 +76,7 @@ namespace Magic_Spotter {
 		/// <param name="e">KeywordsRecognizedEventArgs that will contain the recognized text</param>
 		private void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e) {
 			//Debug.WriteLine("Speech recognized : " + e.Result.Text);
-			recognized(this, new FreeSpeechRecognizedEventArgs(e.Result.Text));
+			recognized(this, new FreeSpeechRecognizedEventArgs(strCleaner(e.Result.Text)));
 		}
 
 		/// <summary>
@@ -85,16 +100,28 @@ namespace Magic_Spotter {
 		/// <param name="str">String you want to clean</param>
 		/// <returns>String cleaned</returns>
 		protected static string strCleaner(string str) {
-			str = strKeepOnlyText(str);
-			string[] splitString = str.Split(' ');
-			//Debug.WriteLine("Split string : " + str);
-			foreach (string s in splitString) {
-				//Debug.WriteLine(s);
+			str = str.ToLower();
+			foreach(string number in stringToInt.Keys) {
+				if (str.Contains(number + " "))
+					str = str.Replace(number + " ", stringToInt[number].ToString());
+				else if (str.Contains(number))
+					str = str.Replace(number, stringToInt[number].ToString());
 			}
+
+			if(str.Contains("mois à "))
+				str = str.Replace("mois à ", "-");
+			else if (str.Contains("mois de "))
+				str = str.Replace("mois de ", "-");
+			if (str.Contains("mois"))
+				str = str.Replace("mois ", "-");
+			
 			return str;
 		}
 	}
 
+	/// <summary>
+	/// New type of event that will allow us to pass recognized text (here the string text) to other methods that will handle the event (e.g : Program.OnSpeechRecognizerRecognized will be able to get the recognized text
+	/// </summary>
 	public class FreeSpeechRecognizedEventArgs : EventArgs {
 
 		private readonly string text;

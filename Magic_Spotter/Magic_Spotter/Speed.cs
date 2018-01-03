@@ -9,8 +9,9 @@ namespace Magic_Spotter {
 	/// Represents a speed. To a name corresponds a specific speed value
 	/// </summary>
     class Speed {
-        private string name { get; set; }
-        private double speed { get; set; }
+
+        private string name { get; set; }	// Name of the speed ("Statique", "Recherche", "Patrouille" or "Course")
+        private double speed { get; set; }	// Value (in km/h) linked to the speed
 
         public Speed(string name) {
             adjustSpeed(name);
@@ -21,6 +22,7 @@ namespace Magic_Spotter {
 		/// </summary>
 		/// <param name="name">String corresponding to a speed name (static, search, patrol or run)</param>
         public void adjustSpeed(string name) {
+			// N.B : For now, the speed is not used in the application because the horizontal adjustments formula depending of target's speed isn't known and implemented by the developper. Will be added in future versions.
             this.name = name;
             switch (name.ToLower()) {
                 case "Statique":
